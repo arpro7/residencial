@@ -1,0 +1,47 @@
+{
+    "t-menu": "Menú",
+    "t-pages": "Paginas",
+
+    "t-contacts": "Contactos",
+    "t-company": "Empresas",
+    "t-users": "Usuarios",
+    "t-suppliers": "Provedores",
+
+    "t-sales": "Ventas",
+    "t-dashboard": "Tablero",
+    "t-invoice": "Facturas",
+    "t-budget": "Presupuesto",
+    "t-services": "Servicios",
+
+    "t-spents": "Gastos",
+    "t-payroll": "Nóminas",
+    "t-inventory": "Inventarios",
+    "t-products": "Productos",
+    "t-wharehouse": "Almacenes",
+
+    "t-assets": "Activos",
+    "t-checkin": "Entradas",
+    "t-checkout": "Salidas",
+    
+
+    "t-teams": "Equipo",
+    "t-zone": "Mi zona",
+    "t-employees": "Empleados",
+    "t-lacks": "Ausencias",
+    "t-work-schedule": "Control de Horarios",
+    "t-inbox": "Correo",
+    "t-task": "Tareas",
+
+    "t-projects": "Proyectos",
+    "t-crm": "CRM",
+
+    "t-accounting": "Contabilidad",
+
+    "t-analytics": "Analitica",
+    "t-target": "Objetivo",
+
+    "t-systems": "Sistemas"
+    
+    
+
+}
