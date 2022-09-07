@@ -1,4 +1,4 @@
-<script>
+1<script>
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { mapActions } from "vuex";
