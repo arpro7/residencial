@@ -90,4 +90,14 @@ export default [
     meta: { title: "Companies", authRequired: true },
     component: () => import("@/views/menu/contacts/companies"),
   },
+
+
+
+   // ------------------------------------------------------------------------------------ Access Controls
+   {
+    path: "/access/logbook",
+    name: "Logbook",
+    meta: { title: "Logbook", authRequired: true },
+    component: () => import("@/views/menu/accessControl/logbook"),
+  },
 ];

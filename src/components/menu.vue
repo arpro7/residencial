@@ -35,7 +35,8 @@ export default {
           e.stopPropagation();
           let closestCollapse = collapse.parentElement.closest(".collapse");
           if (closestCollapse) {
-            let siblingCollapses = closestCollapse.querySelectorAll(".collapse");
+            let siblingCollapses =
+              closestCollapse.querySelectorAll(".collapse");
             siblingCollapses.forEach((siblingCollapse) => {
               if (siblingCollapse.classList.contains("show")) {
                 let aChild = siblingCollapse.parentNode.firstChild;
@@ -61,7 +62,8 @@ export default {
             };
             let siblings = getSiblings(collapse.parentElement);
             siblings.forEach((item) => {
-              if (item.childNodes.length > 2) item.firstElementChild.setAttribute("aria-expanded", "false");
+              if (item.childNodes.length > 2)
+                item.firstElementChild.setAttribute("aria-expanded", "false");
               let ids = item.querySelectorAll("*[id]");
               ids.forEach((item1) => {
                 let aChild = item1.parentNode.firstChild;
@@ -73,7 +75,8 @@ export default {
                   let val = item1.querySelectorAll("ul li a");
 
                   val.forEach((subitem) => {
-                    if (subitem.hasAttribute("aria-expanded")) subitem.setAttribute("aria-expanded", "false");
+                    if (subitem.hasAttribute("aria-expanded"))
+                      subitem.setAttribute("aria-expanded", "false");
                   });
                 }
               });
@@ -98,28 +101,49 @@ export default {
     onRoutechange(ele) {
       this.initActiveMenu(ele.path);
       if (document.getElementsByClassName("mm-active").length > 0) {
-        const currentPosition = document.getElementsByClassName("mm-active")[0].offsetTop;
+        const currentPosition =
+          document.getElementsByClassName("mm-active")[0].offsetTop;
         if (currentPosition > 500)
-          if (this.$refs.isSimplebar) this.$refs.isSimplebar.value.getScrollElement().scrollTop = currentPosition + 300;
+          if (this.$refs.isSimplebar)
+            this.$refs.isSimplebar.value.getScrollElement().scrollTop =
+              currentPosition + 300;
       }
     },
 
     initActiveMenu(ele) {
       setTimeout(() => {
         if (document.querySelector("#navbar-nav")) {
-          let a = document.querySelector("#navbar-nav").querySelector('[href="' + ele + '"]');
+          let a = document
+            .querySelector("#navbar-nav")
+            .querySelector('[href="' + ele + '"]');
 
           if (a) {
             a.classList.add("active");
             let parentCollapseDiv = a.closest(".collapse.menu-dropdown");
             if (parentCollapseDiv) {
               parentCollapseDiv.classList.add("show");
-              parentCollapseDiv.parentElement.children[0].classList.add("active");
-              parentCollapseDiv.parentElement.children[0].setAttribute("aria-expanded", "true");
-              if (parentCollapseDiv.parentElement.closest(".collapse.menu-dropdown")) {
-                parentCollapseDiv.parentElement.closest(".collapse").classList.add("show");
-                if (parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling)
-                  parentCollapseDiv.parentElement.closest(".collapse").previousElementSibling.classList.add("active");
+              parentCollapseDiv.parentElement.children[0].classList.add(
+                "active"
+              );
+              parentCollapseDiv.parentElement.children[0].setAttribute(
+                "aria-expanded",
+                "true"
+              );
+              if (
+                parentCollapseDiv.parentElement.closest(
+                  ".collapse.menu-dropdown"
+                )
+              ) {
+                parentCollapseDiv.parentElement
+                  .closest(".collapse")
+                  .classList.add("show");
+                if (
+                  parentCollapseDiv.parentElement.closest(".collapse")
+                    .previousElementSibling
+                )
+                  parentCollapseDiv.parentElement
+                    .closest(".collapse")
+                    .previousElementSibling.classList.add("active");
               }
             }
           }
@@ -133,240 +157,167 @@ export default {
 <template>
   <div class="container-fluid">
     <ul class="navbar-nav h-100" id="navbar-nav">
-      <!-- ----------------------------------------------------------------------------------------------------------------- Menu -->
+      <!-- --------------------------------------------------------------------------------------- Menu -->
       <li class="menu-title">
-        <i class="ri-more-fill"></i>
         <span data-key="t-menu">{{ $t("t-menu") }}</span>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Contactos -->
+      <!-- --------------------------------------------------------------------------------------- 1 Control de Accesos -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuContacts"
+          href="#sidebarMenu1"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuContacts"
+          aria-controls="sidebarMenu1"
         >
-          <i class="ri-map-pin-user-line"></i>
-          <span data-key="t-contacts">{{ $t("t-contacts") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-access-control">{{ $t("t-access-controls") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuContacts">
+        <div class="collapse menu-dropdown" id="sidebarMenu1">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/contacts/companies" class="nav-link" data-key="t-company">{{ $t("t-company") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{
+                $t("t-visitors")
+              }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-users">{{ $t("t-users") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-suppliers">{{ $t("t-suppliers") }}</router-link>
+              <router-link to="/access/logbook" class="nav-link" data-key="t-logbook">{{
+                $t("t-logbook")
+              }}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Ventas -->
+      <!-- --------------------------------------------------------------------------------------- 2 Pagos -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuSales"
+          href="#sidebarMenu2"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuSales"
+          aria-controls="sidebarMenu2"
         >
-          <i class="ri-funds-line"></i>
-          <span data-key="t-sales">{{ $t("t-sales") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-pays">{{ $t("t-pays") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuSales">
+        <div class="collapse menu-dropdown" id="sidebarMenu2">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-invoice">{{ $t("t-invoice") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-budget">{{ $t("t-budget") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-services">{{ $t("t-services") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Gastos -->
+      <!-- --------------------------------------------------------------------------------------- 3 Comunicados -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuSpents"
+          href="#sidebarMenu3"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuSpents"
+          aria-controls="sidebarMenu3"
         >
-          <i class="ri-hand-coin-line"></i>
-          <span data-key="t-spents">{{ $t("t-spents") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-announcements">{{ $t("t-announcements") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuSpents">
+        <div class="collapse menu-dropdown" id="sidebarMenu3">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-spents">{{ $t("t-spents") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-payroll">{{ $t("t-payroll") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Inventarios -->
+      <!-- --------------------------------------------------------------------------------------- 4 Reservaciones -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuInventory"
+          href="#sidebarMenu4"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuInventory"
+          aria-controls="sidebarMenu4"
         >
-          <i class="ri-building-2-line"></i>
-          <span data-key="t-spents">{{ $t("t-inventory") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-reservations">{{ $t("t-reservations") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuInventory">
+        <div class="collapse menu-dropdown" id="sidebarMenu4">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-products">{{ $t("t-products") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-wharehouse">{{ $t("t-wharehouse") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Activos -->
+      <!-- --------------------------------------------------------------------------------------- 5 Encuesta -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuAssets"
+          href="#sidebarMenu5"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuAssets"
+          aria-controls="sidebarMenu5"
         >
-          <i class="ri-briefcase-2-line"></i>
-          <span data-key="t-assets">{{ $t("t-assets") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-polls">{{ $t("t-polls") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuAssets">
+        <div class="collapse menu-dropdown" id="sidebarMenu5">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-checkin">{{ $t("t-checkin") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-checkout">{{ $t("t-checkout") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Equipos -->
+      <!-- --------------------------------------------------------------------------------------- 6 Incidente -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuTeams"
+          href="#sidebarMenu6"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuTeams"
+          aria-controls="sidebarMenu6"
         >
-          <i class="ri-open-arm-line"></i>
-          <span data-key="t-teams">{{ $t("t-teams") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-incidents">{{ $t("t-incidents") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuTeams">
+        <div class="collapse menu-dropdown" id="sidebarMenu6">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-zone">{{ $t("t-zone") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-employees">{{ $t("t-employees") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-lacks">{{ $t("t-lacks") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-work-schedule">{{ $t("t-work-schedule") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-inbox">{{ $t("t-inbox") }}</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-task">{{ $t("t-task") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Equipos -->
+      <!-- --------------------------------------------------------------------------------------- 7 Quejas y Sugerencias -->
       <li class="nav-item">
         <a
           class="nav-link menu-link"
-          href="#sidebarMenuProjects"
+          href="#sidebarMenu7"
           data-bs-toggle="collapse"
           role="button"
           aria-expanded="false"
-          aria-controls="sidebarMenuProjects"
+          aria-controls="sidebarMenu7"
         >
-          <i class="ri-stack-line"></i>
-          <span data-key="t-projects">{{ $t("t-projects") }}</span>
+          <i class="ri-book-mark-line"></i>
+          <span data-key="t-complaints">{{ $t("t-complaints") }}</span>
         </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuProjects">
+        <div class="collapse menu-dropdown" id="sidebarMenu7">
           <ul class="nav nav-sm flex-column">
             <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-crm">{{ $t("t-crm") }}</router-link>
+              <router-link to="/" class="nav-link" data-key="t-visitors">{{$t("t-visitors")}}</router-link>
             </li>
           </ul>
         </div>
       </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Contabilidad -->
-      <li class="nav-item">
-        <a
-          class="nav-link menu-link"
-          href="#sidebarMenuAccounting"
-          data-bs-toggle="collapse"
-          role="button"
-          aria-expanded="false"
-          aria-controls="sidebarMenuAccounting"
-        >
-          <i class="ri-bar-chart-2-line"></i>
-          <span data-key="t-accounting">{{ $t("t-accounting") }}</span>
-        </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuAccounting">
-          <ul class="nav nav-sm flex-column">
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-crm">{{ $t("t-accounting") }}</router-link>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Analitica -->
-      <li class="nav-item">
-        <a
-          class="nav-link menu-link"
-          href="#sidebarMenuAnalytics"
-          data-bs-toggle="collapse"
-          role="button"
-          aria-expanded="false"
-          aria-controls="sidebarMenuAnalytics"
-        >
-          <i class="ri-slideshow-line"></i>
-          <span data-key="t-analytics">{{ $t("t-analytics") }}</span>
-        </a>
-        <div class="collapse menu-dropdown" id="sidebarMenuAnalytics">
-          <ul class="nav nav-sm flex-column">
-            <li class="nav-item">
-              <router-link to="/" class="nav-link" data-key="t-target">{{ $t("t-target") }}</router-link>
-            </li>
-          </ul>
-        </div>
-      </li>
-      <!-- ----------------------------------------------------------------------------------------------------------------- Sistemas -->
+      <!-- ---------------------------------------------------------------------------------------- Sistemas -->
       <li class="menu-title">
-        <i class="ri-more-fill"></i>
-        <span data-key="t-systems">{{ $t("t-systems") }}</span>
+        <span data-key="t-services">{{ $t("t-services") }}</span>
       </li>
     </ul>
   </div>

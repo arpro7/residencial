@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.e9da3dc42bb705ea378c4340b6f5ceba.js"
+  "/precache-manifest.e5248287adfda8367a32748d72f5b776.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "ARPROapp"});
