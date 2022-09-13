@@ -19,7 +19,29 @@
     "t-incidents": "Incidente",
     "t-complaints": "Quejas y Sugerencias",
 
-    "t-services": "Servicios"
+    "t-services": "Servicios",
+
+    "t-blank1": "------------------ Pagina Control de Acceso -> Bitacora -> Formulario Nuevo Registro",
+    
+    "t-visitor-name": "Nombre del Visitante",
+    "t-house-owner": "Nombre del Colono",
+    "t-block-house": "Calle de la Casa",
+    "t-number-house": "Numero de la Casa",
+    "t-purpose": "Proposito de la Visita",
+    "t-car-plate": "Placas del Automovil",
+    "t-ife-plate": "Numero de Indentificacion IFE",
+
+    "t-visitor": "Visitante",
+    "t-owner": "Colono",
+    "t-house": "Casa",
+    "t-purposite": "Proposito",
+    "t-car": "Placas",
+    "t-ife": "IFE",
+    "t-start-date": "Fecha Entrada",
+    "t-end-date": "Fecha Salida",
+    "t-logbook-status": "Estatus"
+
+
 
 
 }

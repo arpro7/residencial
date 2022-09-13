@@ -1,5 +1,8 @@
 <script>
-  import {CountTo} from "vue3-count-to";
+  import { computed, onMounted } from "vue";
+  import { useStore } from "vuex";
+  import { CountTo } from "vue3-count-to";
+  import { mapActions } from "vuex";
   import Multiselect from "@vueform/multiselect";
   import "@vueform/multiselect/themes/default.css";
   import flatPickr from "vue-flatpickr-component";
@@ -13,6 +16,7 @@
   import Lottie from "@/components/widgets/lottie.vue";
   import animationData from "@/components/widgets/msoeawqm.json";
   import animationData1 from "@/components/widgets/gsqxdxog.json";
+  import { nanoid } from "nanoid";
 
   export default {
   page: {
@@ -167,22 +171,38 @@
     Multiselect,
     flatPickr,
   },
+  setup() {
+    const store = useStore();
+    
+    const accessControls = computed(() => {
+      return store.state.accesscontrol.accesscontrols;
+    });
+
+    onMounted(() => {
+      store.dispatch("accesscontrol/getAccesscontrols");
+    });
+
+    return { accessControls };
+  },
   computed: {
     displayedPosts() {
-      return this.paginate(this.ticketsList);
+      return this.paginate(this.accessControls);
     },
     resultQuery() {
       if (this.searchQuery) {
         const search = this.searchQuery.toLowerCase();
         return this.displayedPosts.filter((data) => {
           return (
-            data.title.toLowerCase().includes(search) ||
-            data.client.toLowerCase().includes(search) ||
-            data.assigned.toLowerCase().includes(search) ||
-            data.create.toLowerCase().includes(search) ||
-            data.due.toLowerCase().includes(search) ||
-            data.status.toLowerCase().includes(search) ||
-            data.priority.toLowerCase().includes(search)
+            data.val1.toLowerCase().includes(search) ||
+            data.val2.toLowerCase().includes(search) ||
+            data.val3.toLowerCase().includes(search) ||
+            data.val4.toLowerCase().includes(search) ||
+            data.val5.toLowerCase().includes(search) ||
+            data.val6.toLowerCase().includes(search) ||
+            data.val7.toLowerCase().includes(search) ||
+            data.val8.toLowerCase().includes(search) ||
+            data.val9.toLowerCase().includes(search) ||
+            data.val10.toLowerCase().includes(search)
           );
         });
       } else {
@@ -204,30 +224,38 @@
     },
   },
   methods: {
+
+    ...mapActions("accesscontrol", ["setAccesscontrols"]),
+
+
     editdata(data){
-        document.getElementById("modal-id").style.display="block";
         document.getElementById('exampleModalLabel').innerHTML="Edit Ticket"
-        document.getElementById('orderId').value=data.id
-        document.getElementById('tasksTitle').value=data.title
-        document.getElementById('clientName').value=data.client
-        document.getElementById('assignedtoName').value=data.assigned
-        document.getElementById('cdate').value=data.create
-        document.getElementById('ddate').value=data.due
-        document.getElementById('ticketstatus').value=data.status
-        document.getElementById('priority').value=data.priority
+        document.getElementById("div1").style.display="block";
+        document.getElementById('div2').value=data.val2
+        document.getElementById('div3').value=data.val3
+        document.getElementById('div4').value=data.val4
+        document.getElementById('div5').value=data.val5
+        document.getElementById('div6').value=data.val6
+        document.getElementById('div7').value=data.val7
+        document.getElementById('div8').value=data.val8
+        document.getElementById('div9').value=data.val9
+        document.getElementById('div10').value=data.val10
 
         document.getElementById('edit-btn').style.display='block';
         document.getElementById('add-btn').style.display='none'
     },
     updateorder(){
-        let result = this.ticketsList.findIndex(o => o.id == document.getElementById('orderId').value)
-        this.ticketsList[result].title = document.getElementById('tasksTitle').value
-        this.ticketsList[result].client = document.getElementById('clientName').value
-        this.ticketsList[result].assigned = document.getElementById('assignedtoName').value
-        this.ticketsList[result].create = document.getElementById('cdate').value
-        this.ticketsList[result].due = document.getElementById('ddate').value
-        this.ticketsList[result].status = document.getElementById('ticketstatus').value
-        this.ticketsList[result].priority = document.getElementById('priority').value
+        let result = this.ticketsList.findIndex(o => o.val1 == document.getElementById('div1').value)
+        this.ticketsList[result].val1 = document.getElementById('div1').value
+        this.ticketsList[result].val2 = document.getElementById('div2').value
+        this.ticketsList[result].val3 = document.getElementById('div3').value
+        this.ticketsList[result].val4 = document.getElementById('div4').value
+        this.ticketsList[result].val5 = document.getElementById('div5').value
+        this.ticketsList[result].val6 = document.getElementById('div6').value
+        this.ticketsList[result].val7 = document.getElementById('div7').value
+        this.ticketsList[result].val8 = document.getElementById('div8').value
+        this.ticketsList[result].val9 = document.getElementById('div9').value
+        this.ticketsList[result].val10 = document.getElementById('div10').value
 
         document.getElementById('closemodal').click();
     },
@@ -287,34 +315,37 @@
       }
     },
     addorder(){
-      var id='#VLZ4'+this.ticketsList.length+1;
-      var title = document.getElementById('tasksTitle').value
-      var client = document.getElementById('clientName').value
-      var assigned = document.getElementById('assignedtoName').value
-      var create = document.getElementById('cdate').value
-      var due = document.getElementById('ddate').value
-      var status = document.getElementById('ticketstatus').value
-      var priority = document.getElementById('priority').value
+      var var2 = document.getElementById('div2').value
+      var var3 = document.getElementById('div3').value
+      var var4 = document.getElementById('div41').value +" "+ document.getElementById('div42').value
+      var var5 = document.getElementById('div5').value
+      var var8 = document.getElementById('div8').value
+      var var9 = document.getElementById('div9').value
+      var var10 = "Entrada"
 
     var data=  {
-      id : id,
-      title : title,
-      client : client,
-      assigned : assigned,
-      create : create,
-      due : due,
-      status : status,
-      priority : priority
+      val1 : nanoid(),
+      val2 : var2,
+      val3 : var3,
+      val4 : var4,
+      val5 : var5,
+      val6 : new Date(),
+      val8 : var8,
+      val9 : var9,
+      val10: var10
       };
-      this.ticketsList.push(data)
+      this.ticketsList.push(data);
+      this.setAccesscontrols(data);
     
       document.getElementById('closemodal').click();
       document.getElementById("addform").reset();
     },
     addnew(){
-      document.getElementById("addform").reset();
-      document.getElementById("modal-id").style.display="none";
-        document.getElementById('exampleModalLabel').innerHTML="Add Ticket";
+        document.getElementById("addform").reset();
+        document.getElementById("div1-field").style.display="none";
+        document.getElementById("div6-field").style.display="none";
+        document.getElementById("div7-field").style.display="none";
+        document.getElementById('exampleModalLabel').innerHTML="Bitacora de Entradas/Salidas";
         document.getElementById('add-btn').style.display='block';
         document.getElementById('edit-btn').style.display='none';
     },
@@ -604,15 +635,16 @@
                         />
                       </div>
                     </th>
-                    <th class="sort" data-sort="id">ID</th>
-                    <th class="sort" data-sort="tasks_name">Title</th>
-                    <th class="sort" data-sort="client_name">Client</th>
-                    <th class="sort" data-sort="assignedto">Assigned To</th>
-                    <th class="sort" data-sort="create_date">Create Date</th>
-                    <th class="sort" data-sort="due_date">Due Date</th>
-                    <th class="sort" data-sort="status">Status</th>
-                    <th class="sort" data-sort="priority">Priority</th>
-                    <th class="sort" data-sort="action">Action</th>
+                    <th class="sort" data-sort="div1">{{ $t("t-visitor") }}</th>
+                    <th class="sort" data-sort="div2">{{ $t("t-owner") }}</th>
+                    <th class="sort" data-sort="div3">{{ $t("t-house") }}</th>
+                    <th class="sort" data-sort="div4">{{ $t("t-purposite") }}</th>
+                    <th class="sort" data-sort="div5">{{ $t("t-car") }}</th>
+                    <th class="sort" data-sort="div6">{{ $t("t-ife") }}</th>
+                    <th class="sort" data-sort="div6">{{ $t("t-start-date") }}</th>
+                    <th class="sort" data-sort="div6">{{ $t("t-end-date") }}</th>
+                    <th class="sort" data-sort="div6">{{ $t("t-logbook-status") }}</th>
+
                   </tr>
                 </thead>
                 <tbody class="list form-check-all">
@@ -627,43 +659,27 @@
                         />
                       </div>
                     </th>
-                    <td class="id">
-                      <router-link
-                        to="/apps/tickets-details"
-                        class="fw-medium link-primary"
-                        >{{ data.id }}</router-link
-                      >
-                    </td>
-                    <td class="tasks_name">
-                      {{ data.title }}
-                    </td>
-                    <td class="client_name">{{ data.client }}</td>
-                    <td class="assignedto">{{ data.assigned }}</td>
-                    <td class="create_date">{{ data.create }}</td>
-                    <td class="due_date">{{ data.due }}</td>
+                    <td class="id">{{ data.val2 }}</td>
+                    <td class="tasks_name">{{ data.val3 }}</td>
+                    <td class="client_name">{{ data.val4 }}</td>
+                    <td class="assignedto">{{ data.val5 }}</td>
+                    <td class="create_date">{{ data.val8 }}</td>
+                    <td class="due_date">{{ data.val9 }}</td>
+
+                    <td class="due_date">{{ $d(new Date(), 'short') }}</td>
+                    <td class="due_date">{{ data.val7 }}</td>
+
                     <td class="status">
                       <span
                         class="badge text-uppercase"
                         :class="{
-                          'badge-soft-warning': data.status == 'Inprogress',
-                          'badge-soft-info': data.status == 'New',
-                          'badge-soft-success': data.status == 'Open',
-                          'badge-soft-danger': data.status == 'Closed',
+                          'badge-soft-warning': data.val10 == 'Entrada',
+                          'badge-soft-success': data.val10 == 'Salida',
                         }"
-                        >{{ data.status }}</span
+                        >{{ data.val10 }}</span
                       >
                     </td>
-                    <td class="priority">
-                      <span
-                        class="badge text-uppercase"
-                        :class="{
-                          'bg-danger': data.priority == 'High',
-                          'bg-success': data.priority == 'Low',
-                          'bg-warning': data.priority == 'Medium',
-                        }"
-                        >{{ data.priority }}</span
-                      >
-                    </td>
+                    
                     <td>
                       <div class="dropdown">
                         <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -788,66 +804,89 @@
           <form id="addform">
             <div class="modal-body">
               <div class="row g-3">
+                <!----------------------------------------------------------------------- OK - Id de Registro -->
                 <div class="col-lg-12">
-                  <div id="modal-id">
-                    <label for="orderId" class="form-label">ID</label>
-                    <input type="text" id="orderId" class="form-control" placeholder="ID" value="#VLZ462" readonly />
+                  <div id="div1-field">
+                    <label for="div1-field" class="form-label">ID</label>
+                    <input type="text" id="div1" class="form-control" readonly />
                   </div>
                 </div>
+                <!----------------------------------------------------------------------- OK - Nombre del Visitante -->
                 <div class="col-lg-12">
                   <div>
-                    <label for="tasksTitle-field" class="form-label" >Title</label>
-                    <input type="text" id="tasksTitle" class="form-control" placeholder="Title" required />
+                    <label for="div2-field" class="form-label">{{ $t("t-visitor-name") }}</label>
+                    <input type="text" id="div2" class="form-control" :placeholder="$t('t-visitor-name')" required />
                   </div>
                 </div>
+                <!----------------------------------------------------------------------- OK - Nombre del Colono -->
                 <div class="col-lg-6">
                   <div>
-                    <label for="clientName-field" class="form-label">Client</label>
-                    <input type="text" id="clientName" class="form-control" placeholder="Client Name" required />
+                    <label for="div3-field" class="form-label">{{ $t("t-house-owner") }}</label>
+                    <input type="text" id="div3" class="form-control" :placeholder="$t('t-house-owner')" required />
                   </div>
                 </div>
+                <!----------------------------------------------------------------------- OK - Proposito -->
+                <div class="col-lg-6">
+                  <label for="div5-field" class="form-label">{{ $t("t-purpose") }}</label>
+                  <select class="form-control" data-plugin="choices" name="Proposito" id="div5">
+                    <option value="">Proposito</option>
+                    <option value="Visitante">Visitante</option>
+                    <option value="Repartidor">Repartidor</option>
+                    <option value="Paqueteria">Paqueteria</option>
+                    <option value="Servicios">Servicios</option>
+                    <option value="Trabajador Domestico">Trabajador Domestico</option>
+                    <option value="Trabajador de Obra">Trabajador de Obra</option>
+                  </select>
+                </div>     
+                <!----------------------------------------------------------------------- OK - Direccion de Casa -->
+                <div class="col-lg-6">
+                  <label for="div41-field" class="form-label">{{ $t("t-block-house") }}</label>
+                  <select class="form-control" data-plugin="choices" name="Calle" id="div41">
+                    <option value="">Calle</option>
+                    <option value="Av. Santa Teresa">Av. Santa Teresa</option>
+                    <option value="Av. San Pedro">Av. San Pedro</option>
+                    <option value="Av. San Juan">Av. San Juan</option>
+                    <option value="Av. San Cristobal">Av. San Cristobal</option>
+                    <option value="Av. San Judas">Av. San Judas</option>
+                    <option value="Av. San Benito">Av. San Benito</option>
+                  </select>
+                </div>
+                <!----------------------------------------------------------------------- OK - Numero de Casa -->
                 <div class="col-lg-6">
                   <div>
-                    <label for="assignedtoName-field" class="form-label" >Assigned To</label>
-                    <input type="text" id="assignedtoName" class="form-control" placeholder="Assigned to" required />
+                    <label for="div42-field" class="form-label">{{ $t("t-number-house") }}</label>
+                    <input type="number" id="div42" class="form-control" :placeholder="$t('t-number-house')" required />
                   </div>
-                </div>
-                <div class="col-lg-6">
-                  <label for="date-field" class="form-label">Create Date</label>
-
+                </div>              
+                <div class="col-lg-6" id="div6-field">
+                  <label for="div6-field" class="form-label">Create Date</label>
                   <flat-pickr
                     v-model="date1"
                     :config="config"
-                    class="form-control bg-light border-light" id="cdate"
+                    class="form-control bg-light border-light" id="div6"
                   ></flat-pickr>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" id="div7-field">
                   <label for="duedate-field" class="form-label">Due Date</label>
-
                   <flat-pickr
                     v-model="date2"
                     :config="config"
-                    class="form-control bg-light border-light" id="ddate"
+                    class="form-control bg-light border-light" id="div7"
                   ></flat-pickr>
                 </div>
+                <!----------------------------------------------------------------------- OK - Placas de Auto -->
                 <div class="col-lg-6">
-                  <label for="ticket-status" class="form-label">Status</label>
-                  <select class="form-control" data-plugin="choices" name="ticket-status" id="ticketstatus">
-                    <option value="">Status</option>
-                    <option value="New">New</option>
-                    <option value="Inprogress">Inprogress</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Open">Open</option>
-                  </select>
+                  <div>
+                    <label for="div8-field" class="form-label" >{{ $t("t-car-plate") }}</label>
+                    <input type="text" id="div8" class="form-control" :placeholder="$t('t-car-plate')" />
+                  </div>
                 </div>
+                <!----------------------------------------------------------------------- OK - Identificacion IFE -->
                 <div class="col-lg-6">
-                  <label for="priority-field" class="form-label">Priority</label>
-                  <select class="form-control" data-plugin="choices" name="priority-field" id="priority">
-                    <option value="">Priority</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
+                  <div>
+                    <label for="div9-field" class="form-label" >{{ $t("t-ife-plate") }}</label>
+                    <input type="text" id="div9" class="form-control" :placeholder="$t('t-ife-plate')" required />
+                  </div>
                 </div>
               </div>
             </div>

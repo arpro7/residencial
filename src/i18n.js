@@ -39,6 +39,7 @@ const dateTimeFormats = {
   en: setDateTimeFormats,
   es: setDateTimeFormats,
   de: setDateTimeFormats,
+  sp: setDateTimeFormats,
   'en-GB': setDateTimeFormats,
 };
 

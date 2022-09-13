@@ -4,16 +4,16 @@ import { nanoid } from "nanoid";
 export const state = {
   accesscontrols: [],
   accesscontrol: {
-    id: "",
-    visitor_name: "",
-    house_owner: "",
-    id_house: "",
-    purpose: "",
-    star_date: "",
-    end_date: "",
-    car_serie: "",
-    ife_serie: "",
-    estatus: ""
+    val1 : "",     // id
+    val2 : "",     // visitor_name
+    val3 : "",     // house_owner
+    val4 : "",     // id_house
+    val5 : "",     // purpose
+    val6 : "",     // star_date
+    val7 : "",     // end_date
+    val8 : "",     // car_serie
+    val9 : "",     // ife_serie
+    val10 : ""     // estatus
   },
 };
 
@@ -67,7 +67,7 @@ export const actions = {
   //POST
   async setAccesscontrols({ commit }, accesscontrol) {
     try {
-      await fetch(`https://arprobackend-default-rtdb.firebaseio.com/accesscontrols-api/${accesscontrol.id}.json`, {
+      await fetch(`https://arprobackend-default-rtdb.firebaseio.com/accesscontrols-api/${accesscontrol.val1}.json`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
